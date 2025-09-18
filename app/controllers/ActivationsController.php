@@ -5,6 +5,13 @@ use \Lib\Token;
 use App\Models\Device;
 
 class ActivationsController extends Controller {
+
+    public static $durations = [
+        0 => ["credits" => 3, "duration" => null],
+        1 => ["credits" => 1, "duration" => "1 year"],
+        2 => ["credits" => 2, "duration" => "2 years"]
+    ];
+
     public function index(){
         response()->render('activation', [
             "page_title" => "Device Activation",
@@ -39,43 +46,42 @@ class ActivationsController extends Controller {
     }
 
     public function activateDevice() {
-        if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
-            return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
-        }
+        // if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
+        //     return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
+        // }
         $data = request()->body();
         $mac = $data["device_mac"] ?? null;
-        $days = isset($data["days"]) ? (int)$data["days"] : 0;
         if(!$mac) return response()->json(['success' => false,'error' => 'Device MAC address is required', '_token' => Token::generate("activate_device")], 200);
-        if($days <= 0) return response()->json(['success' => false,'error' => 'Days must be a positive integer', '_token' => Token::generate("activate_device")], 200);
-
         $device = Device::findByMac($mac, 'SQL_CACHE *');
         if(!$device) return response()->json(['success' => false, 'error' => 'Device not found', '_token' => Token::generate("activate_device")], 200);
-        if($device["expire_date"] !== null && $device["expire_date"] <= time()) {
-            // Device is expired, set new expire date
-            $newExpireDate = time() + ($days * 86400);
-        } else {
-            // Device is active or never expires, extend expire date
-            $currentExpireDate = $device["expire_date"] ?? time();
-            $newExpireDate = $currentExpireDate + ($days * 86400);
+        $duration = $data["duration"] ?? null;
+        if($duration < 0 || !is_numeric($duration) || !in_array($duration, array_keys(self::$durations))) {
+            return response()->json(['success' => false, 'error' => 'Invalid duration', '_token' => Token::generate("activate_device")], 200);
         }
-
-        $update = Device::edit($device['id'], [
-            'expire_date' => $newExpireDate
+        if($device["expire_date"] === null || $device["expire_date"] > time()) {
+            return response()->json(['success' => false, 'error' => 'Device already activated', '_token' => Token::generate("activate_device")], 200);
+        }
+        $reseller = auth()->user();
+        if($reseller->credits < self::$durations[$duration]["credits"]) {
+            return response()->json(['success' => false, 'error' => 'Not enough credits', '_token' => Token::generate("activate_device")], 200);
+        }
+        $expireDate = (self::$durations[$duration]["duration"] === null) ? null : strtotime("+" . self::$durations[$duration]["duration"] . ""); // Convert days to seconds
+        $deviceUpdate = Device::edit($device["id"], [
+            "expire_date" => $expireDate,
+            "activated_at" => time()
         ]);
-        if($update) {
-            return response()->json([
-                'success' => true,
-                'message' => "Device activated successfully.",
-                'data' => [
-                    "mac" => $mac,
-                    "device_id" => $device['id'],
-                    "added_at" => date("Y-m-d H:i:s", $device["added_at"]),
-                    "expire_date" => date("Y-m-d H:i:s", $newExpireDate),
-                ],
-                '_token' => Token::generate("activate_device")
-            ], 200);
-        } else {
-            return response()->json(['success' => false, 'error' => 'Failed to activate device', '_token' => Token::generate("activate_device")], 200);
-        }   
+        if($deviceUpdate){
+            $res = auth()->update([
+                "credits" => $reseller->credits - self::$durations[$duration]["credits"]
+            ]);
+            if($res) return response()->json(['success' => true, 'message' => 'Device activated successfully', '_token' => Token::generate("activate_device")], 200);
+            
+            // Rollback device activation
+            Device::edit($device["id"], [
+                "expire_date" => $device["expire_date"],
+                "activated_at" => $device["activated_at"]
+            ]);
+            return response()->json(['success' => false, 'error' => 'Failed to deduct credits from your account. Please contact support.', '_token' => Token::generate("activate_device")], 200);
+        }
     }
 }

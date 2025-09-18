@@ -97,6 +97,17 @@ class DevicesController extends Controller
     }
 
     public function info() {
+        return view('device_info', [
+            'title' => 'Device Info',
+            'activePage' => 'device_info',
+            'durations' => [],
+            // 'durations' => ActivationsController::$durations,
+            // 'reseller' => auth()->user(),
+            // '_token' => Token::generate("activate_device")
+        ]);
+    }
+
+    public function infoPost() {
         $mac = request()->body()["device_mac"] ?? null;
         if(!$mac) return response()->json(['success' => false,'error' => 'Device MAC address is required'], 200);
 

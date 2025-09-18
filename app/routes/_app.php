@@ -34,14 +34,16 @@ app()->group('/resellers', ["middleware" => "guest", function() {
     app()->post('/edit/{resellerId}', 'ResellersController@update');
 }]);
 
-app()->group('/devices', ["middleware" => "guest", function() {
-    app()->get("/", "DevicesController@manage");
-    app()->post("/info", "DevicesController@info");
-    app()->get('/activate', 'DevicesController@create');
-    app()->post('/activate', 'DevicesController@store');
-    app()->post('/delete', 'DevicesController@destroy');
-    app()->post('/update', 'DevicesController@update');
-}]);
+// app()->group('/devices', ["middleware" => "guest", function() {
+//     app()->get("/", "DevicesController@manage");
+//     app()->post("/info", "DevicesController@info");
+//     app()->get('/activate', 'DevicesController@create');
+//     app()->post('/activate', 'DevicesController@store');
+//     app()->post('/delete', 'DevicesController@destroy');
+//     app()->post('/update', 'DevicesController@update');
+// }]);
+
+app()->get('/device-info', ["middleware" => "guest",'DevicesController@info']);
 
 app()->group("/playlists", ["middleware" => "guest", function() {
     app()->get('/add', 'PlaylistsController@create');

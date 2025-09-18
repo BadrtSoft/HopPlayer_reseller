@@ -13,7 +13,7 @@ class Device extends Model {
 
     public static function edit($deviceId, $data) {
         if(!$deviceId) return false;
-        $update = db()->update(self::$_table)->where('id', '=', $deviceId)->params($data)->execute();
+        $update = db()->update(self::$_table)->params($data)->where('id', '=', $deviceId)->execute();
         if($update !== 0 && $update !== false && $update !== "0") return true;
         return false;
     }
