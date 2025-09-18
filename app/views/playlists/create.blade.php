@@ -87,7 +87,7 @@
                             <a href="/activation" class="ripple"><i class="list-icon material-icons">important_devices</i> <span class="hide-menu">Activation</span></a>
                         </li>
                         <li>
-                            <a href="/device-info" class="ripple"><i class="list-icon material-icons">info_outline</i> <span class="hide-menu">Device Info</span></a>
+                            <a href="/devices/info" class="ripple"><i class="list-icon material-icons">info_outline</i> <span class="hide-menu">Device Info</span></a>
                         </li>
                         <li>
                             <a href="/resellers" class="ripple"><i class="list-icon material-icons">recent_actors</i> <span class="hide-menu">Resellers</span></a>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Lib\Token;
 use App\Models\Device;
 
 class DevicesController extends Controller
@@ -97,24 +98,36 @@ class DevicesController extends Controller
     }
 
     public function info() {
-        return view('device_info', [
-            'title' => 'Device Info',
+        return response()->view('deviceInfo', [
+            'page_title' => 'Device Info',
             'activePage' => 'device_info',
             'durations' => [],
-            // 'durations' => ActivationsController::$durations,
-            // 'reseller' => auth()->user(),
-            // '_token' => Token::generate("activate_device")
+            'reseller' => auth()->user(),
+            '_token' => Token::generate("activate_device")
         ]);
     }
 
-    public function infoPost() {
+    public function postInfo() {
+        if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
+            return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
+        }
         $mac = request()->body()["device_mac"] ?? null;
-        if(!$mac) return response()->json(['success' => false,'error' => 'Device MAC address is required'], 200);
+        if(!$mac) return response()->json(['success' => false,'error' => 'Device MAC address is required', '_token' => Token::generate("activate_device")], 200);
 
-        $device = Device::findByMac($mac, 'SQL_CACHE id, mac_address');
+        $device = Device::findByMac($mac, 'SQL_CACHE *');
         // die(var_dump($device));
-        if(!$device) return response()->json(['success' => false, 'error' => 'Device not found'], 200);
+        if(!$device) return response()->json(['success' => false, 'error' => 'Device not found', '_token' => Token::generate("activate_device")], 200);
         // var_dump($device);
-        return response()->json(['success' => true, 'device_id' => $device['id']], 200);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                "mac" => $mac,
+                "device_id" => $device['id'],
+                "activated" => ($device["expire_date"] === null || $device["expire_date"] > time()) ? true : false,
+                "added_at" => date("Y-m-d H:i:s", $device["added_at"]),
+                "expire_date" => $device["expire_date"] ? date("Y-m-d H:i:s", $device["expire_date"]) : "Never",
+            ],
+            '_token' => Token::generate("activate_device")
+        ], 200);
     }
 }

@@ -87,7 +87,7 @@
                             <a href="/activation" class="ripple"><i class="list-icon material-icons">important_devices</i> <span class="hide-menu">Activation</span></a>
                         </li>
                         <li>
-                            <a href="/device-info" class="ripple"><i class="list-icon material-icons">info_outline</i> <span class="hide-menu">Device Info</span></a>
+                            <a href="/devices/info" class="ripple"><i class="list-icon material-icons">info_outline</i> <span class="hide-menu">Device Info</span></a>
                         </li>
                         <li>
                             <a href="/resellers" class="ripple"><i class="list-icon material-icons">recent_actors</i> <span class="hide-menu">Resellers</span></a>
@@ -181,16 +181,18 @@
                                                     <input class="form-control" id="mac_address" placeholder="--:--:--:--:--:--" name="mac_address" type="text" readonly="readonly">
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label" for="added_at">Add At</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control" id="added_at" name="added_at" type="text" readonly="readonly">
+                                            <div class="row">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-2 col-form-label" for="added_at">First Usage</label>
+                                                    <div class="col-md-9">
+                                                        <input class="form-control" id="added_at" name="added_at" type="text" readonly="readonly">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label" for="expire_date">Expire Date</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control" id="expire_date" name="expire_date" type="text" readonly="readonly">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-2 col-form-label" for="expire_date">Expire Date</label>
+                                                    <div class="col-md-9">
+                                                        <input class="form-control" id="expire_date" name="expire_date" type="text" readonly="readonly">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -198,9 +200,6 @@
                                                 <div class="col-md-9">
                                                     <input class="form-control" id="expired" name="expired" type="text" readonly="readonly">
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal" type="button" id="activateDevice">Activate Now</button>
                                             </div>
                                         </div>
                                     </div>
@@ -215,36 +214,6 @@
                 </div>
                 <!-- /.widget-list -->
             </main>
-        </div>
-
-        <div class="modal fade" id="activationModal" tabindex="-1" role="dialog" aria-labelledby="activationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="activationModalLabel">New Activation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="activation-duration" class="col-form-label">Duration:</label>
-                            <select class="form-control" id="activation-duration">
-                                <option value="">Select Duration</option>
-                                <option value="1">1 Year</option>
-                                <option value="2">2 Years</option>
-                                <option value="0">Lifetime</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="activateDeviceBtn" class="btn btn-primary">Activate</button>
-                </div>
-                </div>
-            </div>
         </div>
 
 
@@ -291,7 +260,7 @@
                     return;
                 }
                 $.ajax({
-                    url: "/activation/device/info",
+                    url: "/devices/info",
                     method: "POST",
                     data: {
                         device_mac: mac,

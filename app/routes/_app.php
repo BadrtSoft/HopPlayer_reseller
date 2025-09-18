@@ -43,7 +43,11 @@ app()->group('/resellers', ["middleware" => "guest", function() {
 //     app()->post('/update', 'DevicesController@update');
 // }]);
 
-app()->get('/device-info', ["middleware" => "guest",'DevicesController@info']);
+app()->group('/devices', ["middleware" => "guest", function() {
+    app()->get("/", "DevicesController@info");
+    app()->get('/info', 'DevicesController@info');
+    app()->post("/info", "DevicesController@postInfo");
+}]);
 
 app()->group("/playlists", ["middleware" => "guest", function() {
     app()->get('/add', 'PlaylistsController@create');
