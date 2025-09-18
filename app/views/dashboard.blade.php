@@ -166,8 +166,8 @@
                                             <div class="widget-bg bg-primary text-inverse">
                                                 <div class="widget-body">
                                                     <div class="widget-counter">
-                                                        <h6>Total Sales <small class="text-inverse">Last week</small></h6>
-                                                        <h3 class="h1">$<span class="counter">741</span></h3><i class="material-icons list-icon">add_shopping_cart</i>
+                                                        <h6>Credits </h6>
+                                                        <h3 class="h1"><span class="counter">{{ $reseller->credits }}</span></h3><i class="material-icons list-icon">credit_card</i>
                                                     </div>
                                                     <!-- /.widget-counter -->
                                                 </div>
@@ -181,8 +181,8 @@
                                             <div class="widget-bg bg-color-scheme text-inverse">
                                                 <div class="widget-body clearfix">
                                                     <div class="widget-counter">
-                                                        <h6>New Subscriptions <small class="text-inverse">Last month</small></h6>
-                                                        <h3 class="h1"><span class="counter">346</span></h3><i class="material-icons list-icon">event_available</i>
+                                                        <h6>Total Activations</h6>
+                                                        <h3 class="h1"><span class="counter">0</span></h3><i class="material-icons list-icon">important_devices</i>
                                                     </div>
                                                     <!-- /.widget-counter -->
                                                 </div>
@@ -196,8 +196,8 @@
                                             <div class="widget-bg">
                                                 <div class="widget-body clearfix">
                                                     <div class="widget-counter">
-                                                        <h6>New Users <small>Last 7 days</small></h6>
-                                                        <h3 class="h1"><span class="counter">625</span></h3><i class="material-icons list-icon">public</i>
+                                                        <h6>Activations <small>Last 7 days</small></h6>
+                                                        <h3 class="h1"><span class="counter">0</span></h3><i class="material-icons list-icon">devices</i>
                                                     </div>
                                                     <!-- /.widget-counter -->
                                                 </div>
@@ -211,8 +211,8 @@
                                             <div class="widget-bg">
                                                 <div class="widget-body clearfix">
                                                     <div class="widget-counter">
-                                                        <h6>Total PageViews <small>Last 24 Hours</small></h6>
-                                                        <h3 class="h1"><span class="counter">2748</span></h3><i class="material-icons list-icon">show_chart</i>
+                                                        <h6>Resellers</h6>
+                                                        <h3 class="h1"><span class="counter">0</span></h3><i class="material-icons list-icon">face</i>
                                                     </div>
                                                     <!-- /.widget-counter -->
                                                 </div>

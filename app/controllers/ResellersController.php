@@ -8,4 +8,8 @@ class ResellersController extends Controller
     {
         response()->render('reseller');
     }
+
+    public function manage(){
+        response()->redirect('/');
+    }
 }
