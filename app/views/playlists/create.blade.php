@@ -50,6 +50,7 @@
             </ul>
             <!-- /.navbar-left -->
             <div class="spacer"></div>
+            <div class="btn-list dropdown d-md-flex mr-4 font-weight-bold"> {{ $reseller->credits }} <span class="mr-1 ml-1 text-muted">Credits</span> <i class="text-muted fa fa-credit-card"></i></div>
         </nav>
         <!-- /.navbar -->
         <div class="content-wrapper">
@@ -198,7 +199,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 col-form-label" for="playlist_url">M3u Playlist URL</label>
                                                     <div class="col-md-9">
-                                                        <input class="form-control" id="playlist_url" placeholder="Default Input" name="playlist_url" type="text" required="required">
+                                                        <input class="form-control" id="playlist_url" placeholder="Playlist URL" name="playlist_url" type="text" required="required">
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Add Playlist</button>

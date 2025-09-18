@@ -106,14 +106,15 @@
                 <!-- Page Title Area -->
                 <div class="row page-title clearfix">
                     <div class="page-title-left">
-                        <h5 class="mr-0 mr-r-5">{{ $page_name }}</h5>
+                        <h5 class="mr-0 mr-r-5">{{ $page_title }}</h5>
+                        {{-- <p class="mr-0 text-muted d-none d-md-inline-block">statistics, charts, events and reports</p> --}}
                     </div>
                     <!-- /.page-title-left -->
                     <div class="page-title-right d-none d-sm-inline-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Dashboard</a>
                             </li>
-                            <li class="breadcrumb-item active">{{ $page_name }}</li>
+                            <li class="breadcrumb-item active">{{ $page_title }}</li>
                         </ol>
                     </div>
                     <!-- /.page-title-right -->
@@ -126,33 +127,47 @@
                     <div class="row">
                         <div class="col-md-12 widget-holder">
                             <div class="widget-bg">
+                                {{-- <div class="widget-heading clearfix">
+                                    <h5>Blank Starter Page</h5>
+                                    <ul class="widget-actions">
+                                        <li><a href="javascript:void(0);"><i
+                                                    class="material-icons list-icon">cached</i></a>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown"><a class="color-content-color"
+                                                    href="javascript:void(0);" class="dropdown-toggle"
+                                                    data-toggle="dropdown"><i
+                                                        class="material-icons list-icon">more_vert</i></a>
+                                                <div class="dropdown-menu"><a class="dropdown-item"
+                                                        href="javascript:void(0);"><i
+                                                            class="material-icons list-icon float-left mr-r-10">date_range</i>
+                                                        History </a><a class="dropdown-item"
+                                                        href="javascript:void(0);"><i
+                                                            class="material-icons list-icon float-left mr-r-10">format_list_bulleted</i>
+                                                        Detailed logs </a>
+                                                    <a class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="material-icons list-icon float-left mr-r-10">pie_chart_outlined</i>
+                                                        Statistics</a>
+                                                    <div role="separator" class="dropdown-divider"></div><a
+                                                        class="dropdown-item" href="javascript:void(0);"><i
+                                                            class="material-icons list-icon float-left mr-r-10">close</i>
+                                                        <strong>Clear list</strong></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- /.widget-actions -->
+                                </div> --}}
                                 <!-- /.widget-heading -->
                                 <div class="widget-body clearfix">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <p class="card-text"><strong>Credits :</strong> {{ $reseller->credits }}</p>
-                                            <p class="card-text"><strong>Created At :</strong> {{ date("Y/m/d",$reseller->created_at) }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="card mt-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Change Password</h5>
-                                            <form action="/auth/change-password" method="POST" id="changePasswordForm">
-                                                <div class="form-group">
-                                                    <label for="current_password">Current Password</label>
-                                                    <input type="password" class="form-control" id="current_password" name="current_password" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="new_password">New Password</label>
-                                                    <input type="password" class="form-control" id="new_password" name="new_password" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="confirm_password">Confirm New Password</label>
-                                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Change Password</button>
-                                            </form>
-                                        </div>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to
+                                        make a type specimen book. It has survived not only five centuries, but also the
+                                        leap into electronic typesetting, remaining essentially unchanged. It was
+                                        popularised in the 1960s with the release of Letraset sheets
+                                        containing Lorem Ipsum passages, and more recently with desktop publishing
+                                        software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                                 </div>
                                 <!-- /.widget-body -->
                             </div>
@@ -183,39 +198,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.min.js"></script>
     <script src="/public/assets/js/theme.js"></script>
     <script src="/public/assets/js/custom.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#changePasswordForm').on('submit', function(e) {
-                e.preventDefault();
-
-                var currentPassword = $('#current_password').val();
-                var newPassword = $('#new_password').val();
-                var confirmPassword = $('#confirm_password').val();
-
-                if (newPassword !== confirmPassword) {
-                    swal('Error', 'New passwords do not match!', 'error');
-                    return;
-                }
-
-                $.ajax({
-                    url: '/auth/change-password',
-                    type: 'POST',
-                    data: {
-                        current_password: currentPassword,
-                        new_password: newPassword
-                    },
-                    success: function(response) {
-                        swal('Success', 'Password changed successfully!', 'success');
-                        $('#changePasswordForm')[0].reset();
-                    },
-                    error: function(xhr) {
-                        var errorMessage = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'An error occurred';
-                        swal('Error', errorMessage, 'error');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

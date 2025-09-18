@@ -50,6 +50,7 @@
             </ul>
             <!-- /.navbar-left -->
             <div class="spacer"></div>
+            <div class="btn-list dropdown d-md-flex mr-4 font-weight-bold"> {{ $reseller->credits }} <span class="mr-1 ml-1 text-muted">Credits</span> <i class="text-muted fa fa-credit-card"></i></div>
         </nav>
         <!-- /.navbar -->
         <div class="content-wrapper">
@@ -175,32 +176,60 @@
                                             <h5 class="card-title">Device Info</h5>
                                         </div>
                                         <div class="card-body">
-                                            <div class="form-group row">
+                                            {{-- <div class="form-group row">
                                                 <label class="col-md-3 col-form-label" for="mac_address">Mac Address</label>
                                                 <div class="col-md-9">
                                                     <input class="form-control" id="mac_address" placeholder="--:--:--:--:--:--" name="mac_address" type="text" readonly="readonly">
                                                 </div>
-                                            </div>
+                                            </div> --}}
+
                                             <div class="row">
-                                                <div class="form-group col-md-6 row">
-                                                    <label class="col-md-2 col-form-label" for="added_at">First Usage</label>
-                                                    <div class="col-md-9">
-                                                        <input class="form-control" id="added_at" name="added_at" type="text" readonly="readonly">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="mac_address">Mac Address</label>
+                                                        <input class="form-control text-center" readonly="" id="mac_address" placeholder="" type="text">
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-md-6 row">
-                                                    <label class="col-md-2 col-form-label" for="expire_date">Expire Date</label>
-                                                    <div class="col-md-9">
-                                                        <input class="form-control" id="expire_date" name="expire_date" type="text" readonly="readonly">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="expired">Expire Date</label>
+                                                        <input class="form-control text-center text-white" id="expired" placeholder="" readonly="" type="text">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="added_at">First Usage</label>
+                                                        <input class="form-control text-center" readonly="" id="added_at" placeholder="" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="expire_date">Expire Date</label>
+                                                        <input class="form-control text-center" id="expire_date" placeholder="" readonly="" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            {{-- <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="added_at">First Usage</label>
+                                                    <input class="form-control" id="added_at" name="added_at" type="text" readonly="readonly">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-lg-2 col-form-label" for="expire_date">Expire Date</label>
+                                                    <input class="form-control" id="expire_date" name="expire_date" type="text" readonly="readonly">
+                                                </div>
+                                            </div> --}}
+                                            {{-- <div class="form-group row">
                                                 <label class="col-md-3 col-form-label" for="expired">Expired</label>
                                                 <div class="col-md-9">
                                                     <input class="form-control" id="expired" name="expired" type="text" readonly="readonly">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -272,7 +301,7 @@
                             $("#mac_address").val(info.mac);
                             $("#added_at").val(info.added_at);
                             $("#expire_date").val(info.expire_date);
-                            $("#expired").val(!info.activated ? "Yes" : "No");
+                            $("#expired").val(!info.activated ? "Yes" : "No").css("background-color", info.activated ? "green" : "red");
                             if(!info.activated){
                                 $("#activateDevice").prop("disabled", false);
                             }

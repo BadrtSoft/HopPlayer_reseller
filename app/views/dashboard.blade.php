@@ -50,6 +50,7 @@
             </ul>
             <!-- /.navbar-left -->
             <div class="spacer"></div>
+            <div class="btn-list dropdown d-md-flex mr-4 font-weight-bold"> {{ $reseller->credits }} <span class="mr-1 ml-1 text-muted">Credits</span> <i class="text-muted fa fa-credit-card"></i></div>
         </nav>
         <!-- /.navbar -->
         <div class="content-wrapper">
@@ -159,14 +160,68 @@
                                 </div> --}}
                                 <!-- /.widget-heading -->
                                 <div class="widget-body clearfix">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to
-                                        make a type specimen book. It has survived not only five centuries, but also the
-                                        leap into electronic typesetting, remaining essentially unchanged. It was
-                                        popularised in the 1960s with the release of Letraset sheets
-                                        containing Lorem Ipsum passages, and more recently with desktop publishing
-                                        software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                    <div class="row">
+                                        <!-- Counter: Sales -->
+                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
+                                            <div class="widget-bg bg-primary text-inverse">
+                                                <div class="widget-body">
+                                                    <div class="widget-counter">
+                                                        <h6>Total Sales <small class="text-inverse">Last week</small></h6>
+                                                        <h3 class="h1">$<span class="counter">741</span></h3><i class="material-icons list-icon">add_shopping_cart</i>
+                                                    </div>
+                                                    <!-- /.widget-counter -->
+                                                </div>
+                                                <!-- /.widget-body -->
+                                            </div>
+                                            <!-- /.widget-bg -->
+                                        </div>
+                                        <!-- /.widget-holder -->
+                                        <!-- Counter: Subscriptions -->
+                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
+                                            <div class="widget-bg bg-color-scheme text-inverse">
+                                                <div class="widget-body clearfix">
+                                                    <div class="widget-counter">
+                                                        <h6>New Subscriptions <small class="text-inverse">Last month</small></h6>
+                                                        <h3 class="h1"><span class="counter">346</span></h3><i class="material-icons list-icon">event_available</i>
+                                                    </div>
+                                                    <!-- /.widget-counter -->
+                                                </div>
+                                                <!-- /.widget-body -->
+                                            </div>
+                                            <!-- /.widget-bg -->
+                                        </div>
+                                        <!-- /.widget-holder -->
+                                        <!-- Counter: Users -->
+                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
+                                            <div class="widget-bg">
+                                                <div class="widget-body clearfix">
+                                                    <div class="widget-counter">
+                                                        <h6>New Users <small>Last 7 days</small></h6>
+                                                        <h3 class="h1"><span class="counter">625</span></h3><i class="material-icons list-icon">public</i>
+                                                    </div>
+                                                    <!-- /.widget-counter -->
+                                                </div>
+                                                <!-- /.widget-body -->
+                                            </div>
+                                            <!-- /.widget-bg -->
+                                        </div>
+                                        <!-- /.widget-holder -->
+                                        <!-- Counter: Pageviews -->
+                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
+                                            <div class="widget-bg">
+                                                <div class="widget-body clearfix">
+                                                    <div class="widget-counter">
+                                                        <h6>Total PageViews <small>Last 24 Hours</small></h6>
+                                                        <h3 class="h1"><span class="counter">2748</span></h3><i class="material-icons list-icon">show_chart</i>
+                                                    </div>
+                                                    <!-- /.widget-counter -->
+                                                </div>
+                                                <!-- /.widget-body -->
+                                            </div>
+                                            <!-- /.widget-bg -->
+                                        </div>
+                                        <!-- /.widget-holder -->
+                                    </div>
                                 </div>
                                 <!-- /.widget-body -->
                             </div>
@@ -192,8 +247,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.77/jquery.form-validator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.1.3/mediaelementplayer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.min.js"></script>
     <script src="/public/assets/js/theme.js"></script>
     <script src="/public/assets/js/custom.js"></script>
