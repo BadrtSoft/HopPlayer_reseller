@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controllers;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use \Lib\Token;
 use App\Models\Device;
+use App\Models\Log;
 
 class ActivationsController extends Controller {
 
@@ -74,14 +76,35 @@ class ActivationsController extends Controller {
             $res = auth()->update([
                 "credits" => $reseller->credits - self::$durations[$duration]["credits"]
             ]);
-            if($res) return response()->json(['success' => true, 'message' => 'Device activated successfully', '_token' => Token::generate("activate_device")], 200);
-            
-            // Rollback device activation
-            Device::edit($device["id"], [
-                "expire_date" => $device["expire_date"],
-                "activated_at" => $device["activated_at"]
+            if(!$res) {
+                // Rollback device activation
+                Device::edit($device["id"], [
+                    "expire_date" => $device["expire_date"],
+                    "activated_at" => $device["activated_at"]
+                ]);
+                response()->json(['success' => false, 'error' => 'Failed to deduct credits from your account. Please contact support.', '_token' => Token::generate("activate_device")], 200);
+            }
+
+            $activationLogID = Log::insertActivationLog([
+                'reseller_id' => $reseller->id,
+                'device_id' => $device['id'],
+                'credits_used' => self::$durations[$duration]["credits"],
+                'action' => 'device_activation',
+                'action_date' => time()
             ]);
-            return response()->json(['success' => false, 'error' => 'Failed to deduct credits from your account. Please contact support.', '_token' => Token::generate("activate_device")], 200);
+
+            Log::insertCreditsLog([
+                'reseller_id' => $reseller->id,
+                'credit' => self::$durations[$duration]["credits"],
+                'credits_before' => $reseller->credits,
+                'credits_after' => $reseller->credits - self::$durations[$duration]["credits"],
+                'action_id' => $activationLogID,
+                'description' => 'Used for activating device (Mac: ' . $device['mac_address'] . ')',
+                'reason' => 'device_activation',
+                'action_date' => time()
+            ]);
+            return response()->json(['success' => true, 'message' => 'Device activated successfully', '_token' => Token::generate("activate_device")], 200);
+            
         }
     }
 }
