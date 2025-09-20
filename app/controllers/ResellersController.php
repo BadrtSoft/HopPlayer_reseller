@@ -62,7 +62,7 @@ class ResellersController extends Controller
                 '_token' => \Lib\Token::generate('create_reseller_form')
             ]);
         }
-
+        
         if(\App\Models\Reseller::findByUsername($body['username'])){
             return response()->json([
                 'success' => false,
@@ -107,6 +107,7 @@ class ResellersController extends Controller
     }
 
     public function dataTables(){
+        if(request()->isAjax() === false) return response()->redirect('/');
         $resellers = \App\Models\Reseller::allByOwner(auth()->user()->id);
         $data = [];
         foreach($resellers as $reseller){
@@ -128,6 +129,7 @@ class ResellersController extends Controller
     }
 
     public function destroy(){
+        if(request()->isAjax() === false) return response()->redirect('/');
         $body = request()->body();
         if(!$body['reseller_id'] || !is_numeric($body['reseller_id']) || empty($body['reseller_id'])){
             return response()->redirect('/resellers');
