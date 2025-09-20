@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d59eab9a2b4b87f9d5f86f91fdf3a4c2",
+    "content-hash": "d4d11014294e31272c2f183db33137b7",
     "packages": [
         {
             "name": "brick/math",
@@ -2088,6 +2088,70 @@
                 }
             ],
             "time": "2021-09-19T12:27:19+00:00"
+        },
+        {
+            "name": "leafs/redis",
+            "version": "v4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafsphp/redis.git",
+                "reference": "491b0f2f1e944d70cd32d29460ead25aa4b290a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafsphp/redis/zipball/491b0f2f1e944d70cd32d29460ead25aa4b290a8",
+                "reference": "491b0f2f1e944d70cd32d29460ead25aa4b290a8",
+                "shasum": ""
+            },
+            "require": {
+                "leafs/aloe": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Leaf\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Darko",
+                    "email": "mickdd22@gmail.com",
+                    "homepage": "https://mychi.netlify.app",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Super simple redis helper for your PHP apps.",
+            "homepage": "https://github.com/leafsphp/redis",
+            "keywords": [
+                "cache",
+                "database",
+                "leaf",
+                "php",
+                "redis",
+                "storage"
+            ],
+            "support": {
+                "issues": "https://github.com/leafsphp/redis/issues",
+                "source": "https://github.com/leafsphp/redis/tree/v4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/leafsphp",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/leaf",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2025-02-19T20:46:52+00:00"
         },
         {
             "name": "leafs/session",

@@ -39,7 +39,7 @@
         <nav class="navbar">
             <!-- Logo Area -->
             <div class="navbar-header">
-                <a href="index.html" class="navbar-brand">
+                <a href="/" class="navbar-brand">
                     <img class="logo-expand" alt="" src="/public/assets/img/logo-expand.png">
                     <img class="logo-collapse" alt="" src="/public/assets/img/logo-collapse.png">
                     <!-- <p>OSCAR</p> -->
@@ -62,7 +62,7 @@
                 <div class="side-user">
                     <a class="col-sm-12 media clearfix" href="javascript:void(0);">
                         <figure class="media-left media-middle user--online thumb-sm mr-r-10 mr-b-0">
-                            <img src="/public/assets/demo/users/user-image.png" class="media-object rounded-circle"
+                            <img src="/public/assets/img/profile.jpg" class="media-object rounded-circle"
                                 alt="">
                         </figure>
                         <div class="media-body hide-menu">
