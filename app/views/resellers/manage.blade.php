@@ -236,23 +236,38 @@
             });
 
             window.delete = function(id) {
-                $.ajax({
-                    url: '/resellers/delete',
-                    type: 'POST',
-                    data: {
-                        reseller_id: id,
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            swal('Deleted!', response.message, 'success');
-                            $('#resellers-table').DataTable().ajax.reload();
-                        } else {
-                            swal('Error!', response.message, 'error');
-                        }
-                    }
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false
+                }).then((result) => {
+                    deleteReseller();
+                }).catch((err) => {
+                    swal("Cancelled", "Action Cancelled", "error");
                 });
-            }
 
+                function deleteReseller() {
+                    $.ajax({
+                        url: '/resellers/delete',
+                        type: 'POST',
+                        data: {
+                            reseller_id: id,
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                swal('Deleted!', response.message, 'success');
+                                $('#resellers-table').DataTable().ajax.reload();
+                            } else {
+                                swal('Error!', response.message, 'error');
+                            }
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>
