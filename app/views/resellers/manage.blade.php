@@ -26,6 +26,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+
     <link href="/public/assets/css/style.css" rel="stylesheet" type="text/css">
     <!-- Head Libs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -160,68 +162,34 @@
                                 </div> --}}
                                 <!-- /.widget-heading -->
                                 <div class="widget-body clearfix">
-                                    <div class="row">
-                                        <!-- Counter: Sales -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg bg-primary text-inverse">
-                                                <div class="widget-body">
-                                                    <div class="widget-counter">
-                                                        <h6>Credits </h6>
-                                                        <h3 class="h1"><span class="counter">{{ $reseller->credits }}</span></h3><i class="material-icons list-icon">credit_card</i>
-                                                    </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
-                                        <!-- Counter: Subscriptions -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg bg-color-scheme text-inverse">
-                                                <div class="widget-body clearfix">
-                                                    <div class="widget-counter">
-                                                        <h6>Total Activations</h6>
-                                                        <h3 class="h1"><span id="total-activations" class="counter-standBy">0</span></h3><i class="material-icons list-icon">important_devices</i>
-                                                    </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
-                                        <!-- Counter: Users -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg">
-                                                <div class="widget-body clearfix">
-                                                    <div class="widget-counter">
-                                                        <h6>Activations <small>Last 7 days</small></h6>
-                                                        <h3 class="h1"><span id="last-seven-days-activations" class="">0</span></h3><i class="material-icons list-icon">devices</i>
-                                                    </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
-                                        <!-- Counter: Pageviews -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg">
-                                                <div class="widget-body clearfix">
-                                                    <div class="widget-counter">
-                                                        <h6>Resellers</h6>
-                                                        <h3 class="h1"><span class="counter-standby" id="resellers-count"></span></h3><i class="material-icons list-icon">face</i>
-                                                    </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
+                                    <div class="col-12">
+                                        <a href="/resellers/create" class="mb-3 float-end float-right btn btn-sm btn-success">Add Reseller</a>
                                     </div>
+                                    <table class="table table-striped table-responsive" id="resellers-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Username</th>
+                                                <th>Credits</th>
+                                                <th>Registration Date</th>
+                                                <th>Last Login</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Username</th>
+                                                <th>Credits</th>
+                                                <th>Registration Date</th>
+                                                <th>Last Login</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                                 <!-- /.widget-body -->
                             </div>
@@ -247,26 +215,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.77/jquery.form-validator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.1.3/mediaelementplayer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="/public/assets/js/theme.js"></script>
     <script src="/public/assets/js/custom.js"></script>
     <script>
         $(document).ready(function() {
-            //initialize the javascript
-            $.ajax({
-                url: '/dashboard/stats',
-                method: 'GET',
-                async: true,
-                success: function(data) {
-                    // $('#total-activations').text(data.activated_devices);
-                    document.getElementById('total-activations').innerText = data.activated_devices;
-                    document.getElementById('last-seven-days-activations').innerText = data.last_seven_days_activations;
-                    document.getElementById('resellers-count').innerText = data.resellers_count;
-                    console.log(data);
-                }
+            $('#resellers-table').DataTable({
+                ajax: '/resellers/data-tables',
+                columns: [
+                    { data: 'id' },
+                    { data: 'username' },
+                    { data: 'credits' },
+                    { data: 'created_at' },
+                    { data: 'last_login' },
+                    { data: 'action', orderable: false, searchable: false }
+                ],
             });
         });
     </script>

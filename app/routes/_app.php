@@ -22,7 +22,10 @@ app()->group("/auth", ["middleware" => "guest", function() {
     app()->get('/logout', 'AuthsController@logout');
 }]);
 
-app()->get('/dashboard', ["middleware" => "guest",'DashboardController@index']);
+app()->group('/dashboard', ["middleware" => "guest", function(){
+    app()->get('/', 'DashboardController@index');
+    app()->get('/stats', 'DashboardController@getStats');
+}]);
 app()->get('/profile', ["middleware" => "guest",'ProfileController@index']);
 
 app()->group('/resellers', ["middleware" => "guest", function() {
@@ -32,6 +35,7 @@ app()->group('/resellers', ["middleware" => "guest", function() {
     app()->post('/delete', 'ResellersController@destroy');
     app()->get('/edit/{resellerId}', 'ResellersController@edit');
     app()->post('/edit/{resellerId}', 'ResellersController@update');
+    app()->get('/data-tables', 'ResellersController@dataTables');
 }]);
 
 // app()->group('/devices', ["middleware" => "guest", function() {

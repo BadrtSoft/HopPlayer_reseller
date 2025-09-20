@@ -43,6 +43,7 @@ class AuthsController extends Controller {
         $password = $body["password"] ?? '';
         // var_dump($username, $password); exit;
         if (auth()->login(["username" => $username, "password" => $password])) {
+            auth()->update(['last_login' => time(), "ip" => request()->getIp()]);
             return response()->json([
                 'success' => true
             ]);

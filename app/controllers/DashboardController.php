@@ -10,4 +10,18 @@ class DashboardController extends Controller
             'reseller' => auth()->user()
         ]);
     }
+
+    public function getStats(){
+        $reseller = auth()->user();
+        $creditSpent = \App\Models\Dashboard::getCreditSpent($reseller->id);
+        $totalActivations = \App\Models\Dashboard::getActivatedDevices($reseller->id);
+        $lastSevenDaysActivations = \App\Models\Dashboard::getActivatedDevices($reseller->id, "-7 days");
+        $resellersCount = \App\Models\Dashboard::getResellersCount($reseller->id);
+        response()->json([
+            'credit_spent' => $creditSpent['total_credit'],
+            'activated_devices' => $totalActivations['total_activated_devices'],
+            'last_seven_days_activations' => $lastSevenDaysActivations['total_activated_devices'],
+            'resellers_count' => $resellersCount['total_resellers']
+        ]);
+    }
 }

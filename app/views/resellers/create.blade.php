@@ -160,67 +160,41 @@
                                 </div> --}}
                                 <!-- /.widget-heading -->
                                 <div class="widget-body clearfix">
-                                    <div class="row">
-                                        <!-- Counter: Sales -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg bg-primary text-inverse">
-                                                <div class="widget-body">
-                                                    <div class="widget-counter">
-                                                        <h6>Credits </h6>
-                                                        <h3 class="h1"><span class="counter">{{ $reseller->credits }}</span></h3><i class="material-icons list-icon">credit_card</i>
+                                    <div class="col-md-12 widget-holder">
+                                        <div class="widget-bg">
+                                            <div class="widget-body clearfix">
+                                                <form class="has-validation-callback" id="create-reseller-form" action="/resellers/create" method="POST">
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 col-form-label" for="username">Username</label>
+                                                        <div class="col-md-9">
+                                                            <input class="form-control" id="username" name="username" placeholder="Username" type="text">
+                                                        </div>
                                                     </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
-                                        <!-- Counter: Subscriptions -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg bg-color-scheme text-inverse">
-                                                <div class="widget-body clearfix">
-                                                    <div class="widget-counter">
-                                                        <h6>Total Activations</h6>
-                                                        <h3 class="h1"><span id="total-activations" class="counter-standBy">0</span></h3><i class="material-icons list-icon">important_devices</i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 col-form-label" for="password">Password</label>
+                                                        <div class="col-md-9">
+                                                            <input class="form-control" id="password" name="password" placeholder="Password" type="password">
+                                                        </div>
                                                     </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
-                                        <!-- Counter: Users -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg">
-                                                <div class="widget-body clearfix">
-                                                    <div class="widget-counter">
-                                                        <h6>Activations <small>Last 7 days</small></h6>
-                                                        <h3 class="h1"><span id="last-seven-days-activations" class="">0</span></h3><i class="material-icons list-icon">devices</i>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-3 col-form-label" for="credits">Credits</label>
+                                                        <div class="col-md-9">
+                                                            <input class="form-control" id="credits" name="credits" placeholder="Credits" type="text">
+                                                        </div>
                                                     </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
-                                            </div>
-                                            <!-- /.widget-bg -->
-                                        </div>
-                                        <!-- /.widget-holder -->
-                                        <!-- Counter: Pageviews -->
-                                        <div class="col-md-3 col-sm-6 widget-holder widget-full-height">
-                                            <div class="widget-bg">
-                                                <div class="widget-body clearfix">
-                                                    <div class="widget-counter">
-                                                        <h6>Resellers</h6>
-                                                        <h3 class="h1"><span class="counter-standby" id="resellers-count"></span></h3><i class="material-icons list-icon">face</i>
+                                                    <div class="form-actions">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-9 ml-md-auto btn-list">
+                                                                <button class="btn btn-primary btn-rounded" type="submit">Submit</button>
+                                                                <button class="btn btn-outline-default btn-rounded" type="button">Cancel</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <!-- /.widget-counter -->
-                                                </div>
-                                                <!-- /.widget-body -->
+                                                </form>
                                             </div>
-                                            <!-- /.widget-bg -->
+                                            <!-- /.widget-body -->
                                         </div>
-                                        <!-- /.widget-holder -->
+                                        <!-- /.widget-bg -->
                                     </div>
                                 </div>
                                 <!-- /.widget-body -->
@@ -247,29 +221,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.77/jquery.form-validator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.1.3/mediaelementplayer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="/public/assets/js/theme.js"></script>
     <script src="/public/assets/js/custom.js"></script>
+
     <script>
         $(document).ready(function() {
-            //initialize the javascript
-            $.ajax({
-                url: '/dashboard/stats',
-                method: 'GET',
-                async: true,
-                success: function(data) {
-                    // $('#total-activations').text(data.activated_devices);
-                    document.getElementById('total-activations').innerText = data.activated_devices;
-                    document.getElementById('last-seven-days-activations').innerText = data.last_seven_days_activations;
-                    document.getElementById('resellers-count').innerText = data.resellers_count;
-                    console.log(data);
-                }
+            $("#create-reseller-form").submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Gather form data
+                var formData = {
+                    username: $("#username").val(),
+                    password: $("#password").val(),
+                    credits: $("#credits").val()
+                };
+
+                // Send the form data via AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "/resellers/create",
+                    data: formData,
+                    success: function(response) {
+                        // Handle success response
+                        Swal.fire(
+                            'Success!',
+                            'Reseller created successfully.',
+                            'success'
+                        );
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        Swal.fire(
+                            'Error!',
+                            'There was an error creating the reseller.',
+                            'error'
+                        );
+                    }
+                });
             });
         });
     </script>
+
 </body>
 
 </html>

@@ -73,9 +73,11 @@ class ActivationsController extends Controller {
             "activated_at" => time()
         ]);
         if($deviceUpdate){
+            
             $res = auth()->update([
                 "credits" => $reseller->credits - self::$durations[$duration]["credits"]
             ]);
+
             if(!$res) {
                 // Rollback device activation
                 Device::edit($device["id"], [
@@ -103,8 +105,8 @@ class ActivationsController extends Controller {
                 'reason' => 'device_activation',
                 'action_date' => time()
             ]);
+
             return response()->json(['success' => true, 'message' => 'Device activated successfully', '_token' => Token::generate("activate_device")], 200);
-            
         }
     }
 }

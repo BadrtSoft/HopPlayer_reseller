@@ -386,9 +386,11 @@
       el.each(function(index){
 
         var $this = $(this);
-        $this.perfectScrollbar({
-          wheelSpeed: 0.5
-        });
+        // console.log($this);
+        
+        // $this.perfectScrollbar({
+        //   wheelSpeed: 0.5
+        // });
 
         if($this.parent().parent().hasClass('dropdown-card')) {
           $(document).on('shown.bs.dropdown',$this.parent().parent(), function(){
@@ -1488,7 +1490,7 @@
 
   $(document).ready(function(){
     Unifato.init();
-    Unifato.setMenu();
+    // Unifato.setMenu();
   });
 
   $(window).on('resize', Unifato.setMenu);
