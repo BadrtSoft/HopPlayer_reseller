@@ -364,7 +364,7 @@
                         swal("Error", "An error occurred while processing your request.", "error");
                     }
                 });
-                alert("Xtream Codes API form submitted!");
+                // alert("Xtream Codes API form submitted!");
             });
 
             $("#url_form").submit(function(event) {
@@ -394,7 +394,7 @@
                     }
                 });
                 // Add your form submission logic here
-                alert("Playlist URL form submitted!");
+                // alert("Playlist URL form submitted!");
             });
         });
     </script>
