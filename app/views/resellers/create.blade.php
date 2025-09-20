@@ -229,6 +229,7 @@
 
     <script>
         $(document).ready(function() {
+            let _token = '{{ $_token }}';
             $("#create-reseller-form").submit(function(event) {
                 event.preventDefault(); // Prevent the default form submission
 
@@ -236,7 +237,8 @@
                 var formData = {
                     username: $("#username").val(),
                     password: $("#password").val(),
-                    credits: $("#credits").val()
+                    credits: $("#credits").val(),
+                    _token: _token
                 };
 
                 // Send the form data via AJAX
@@ -246,15 +248,27 @@
                     data: formData,
                     success: function(response) {
                         // Handle success response
-                        Swal.fire(
-                            'Success!',
-                            'Reseller created successfully.',
-                            'success'
-                        );
+                        if(response.success) {
+                            _token = response._token; // Update the token
+                            return swal(
+                                'Success!',
+                                'Reseller created successfully.',
+                                'success'
+                            ).then(() => {
+                                $("#create-reseller-form")[0].reset(); // Reset the form
+                            });
+                        } else {
+                            _token = response._token; // Update the token
+                            return swal(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
                     },
                     error: function(xhr, status, error) {
                         // Handle error response
-                        Swal.fire(
+                        swal(
                             'Error!',
                             'There was an error creating the reseller.',
                             'error'

@@ -108,6 +108,7 @@ class DevicesController extends Controller
     }
 
     public function postInfo() {
+        if(request()->isAjax() === false) return response()->redirect('/');
         if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
             return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
         }

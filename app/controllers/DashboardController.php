@@ -12,6 +12,7 @@ class DashboardController extends Controller
     }
 
     public function getStats(){
+        if(request()->isAjax() === false) return response()->redirect('/');
         $reseller = auth()->user();
         $creditSpent = \App\Models\Dashboard::getCreditSpent($reseller->id);
         $totalActivations = \App\Models\Dashboard::getActivatedDevices($reseller->id);

@@ -40,6 +40,7 @@ class PlaylistsController extends Controller
      * Store a newly created resource in storage.
      */
     public function storeXtremeCodes() {
+        if(request()->isAjax() === false) return response()->redirect('/');
         if(!Token::check(request()->body()['_token'] ?? '', "add_playlist")) {
             return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
         }
@@ -60,6 +61,7 @@ class PlaylistsController extends Controller
      * Store a newly created resource in storage.
      */
     public function storeUrl() {
+        if(request()->isAjax() === false) return response()->redirect('/');
         if(!Token::check(request()->body()['_token'] ?? '', "add_playlist")) {
             return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
         }
@@ -123,6 +125,7 @@ class PlaylistsController extends Controller
     }
 
     public function deviceInfo() {
+        if(request()->isAjax() === false) return response()->redirect('/');
         if(!Token::check(request()->body()['_token'] ?? '', "add_playlist")) {
             return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
         }

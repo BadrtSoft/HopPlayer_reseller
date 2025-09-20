@@ -6,8 +6,7 @@ use App\Models\Log;
 
 class ResellersController extends Controller
 {
-    public function index()
-    {
+    public function index() {
         response()->render('resellers.manage', [
             'page_title' => 'Resellers',
             'reseller' => auth()->user()
@@ -24,37 +23,51 @@ class ResellersController extends Controller
     public function create(){
         response()->render('resellers.create', [
             'page_title' => 'Create Reseller',
-            'reseller' => auth()->user()
+            'reseller' => auth()->user(),
+            '_token' => \Lib\Token::generate('create_reseller_form')
         ]);
     }
 
     public function store(){
+        if(request()->isAjax() === false) return response()->redirect('/resellers/create');
         $body = request()->body();
+
+        if(!\Lib\Token::check($body['_token'] ?? '', 'create_reseller_form')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid CSRF token'
+            ]);
+        }
+
         if(!$body['username'] || !$body['password'] || !$body['credits'] || !is_numeric($body['credits']) || empty($body["username"]) || empty($body["password"]) || empty($body["credits"])){
             return response()->json([
                 'success' => false,
-                'message' => 'All fields are required and credits must be a number'
+                'message' => 'All fields are required and credits must be a number',
+                '_token' => \Lib\Token::generate('create_reseller_form')
             ]);
         }
 
         if($body['credits'] > auth()->user()->credits){
             return response()->json([
                 'success' => false,
-                'message' => 'You do not have enough credits'
+                'message' => 'You do not have enough credits',
+                '_token' => \Lib\Token::generate('create_reseller_form')
             ]);
         }
 
         if($body['credits'] <= 0){
             return response()->json([
                 'success' => false,
-                'message' => 'Credits must be a positive number greater than zero'
+                'message' => 'Credits must be a positive number greater than zero',
+                '_token' => \Lib\Token::generate('create_reseller_form')
             ]);
         }
 
         if(\App\Models\Reseller::findByUsername($body['username'])){
             return response()->json([
                 'success' => false,
-                'message' => 'Username already exists'
+                'message' => 'Username already exists',
+                '_token' => \Lib\Token::generate('create_reseller_form')
             ]);
         }
         $reseller = auth()->user();
@@ -62,7 +75,8 @@ class ResellersController extends Controller
         if(!$updateCredits){
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to update your credits'
+                'message' => 'Failed to update your credits',
+                '_token' => \Lib\Token::generate('create_reseller_form')
             ]);
         }
 
@@ -87,7 +101,7 @@ class ResellersController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Reseller created successfully',
-            'redirect' => '/resellers'
+            '_token' => \Lib\Token::generate('create_reseller_form')
         ]);
 
     }

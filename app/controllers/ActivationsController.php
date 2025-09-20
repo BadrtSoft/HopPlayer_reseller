@@ -24,6 +24,9 @@ class ActivationsController extends Controller {
     }
 
     public function deviceInfo() {
+
+        if(request()->isAjax() === false) return response()->redirect('/');
+
         if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
             return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
         }
@@ -48,9 +51,12 @@ class ActivationsController extends Controller {
     }
 
     public function activateDevice() {
-        // if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
-        //     return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
-        // }
+
+        if(request()->isAjax() === false) return response()->redirect('/');
+
+        if(!Token::check(request()->body()['_token'] ?? '', "activate_device")) {
+            return response()->json(['success' => false, 'error' => 'Invalid CSRF token'], 200);
+        }
         $data = request()->body();
         $mac = $data["device_mac"] ?? null;
         if(!$mac) return response()->json(['success' => false,'error' => 'Device MAC address is required', '_token' => Token::generate("activate_device")], 200);
