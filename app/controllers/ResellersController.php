@@ -107,7 +107,7 @@ class ResellersController extends Controller
     }
 
     public function dataTables(){
-        $resellers = \App\Models\Reseller::findByOwner(auth()->user()->id);
+        $resellers = \App\Models\Reseller::allByOwner(auth()->user()->id);
         $data = [];
         foreach($resellers as $reseller){
             $data[] = [
@@ -116,7 +116,7 @@ class ResellersController extends Controller
                 'credits' => $reseller["credits"],
                 'created_at' => date('Y-m-d H:i:s', $reseller["created_at"]),
                 'last_login' => $reseller["last_login"] ? date('Y-m-d H:i:s', $reseller["last_login"]) : 'Never',
-                'action' => '<a href="/resellers/edit/'.$reseller["id"].'" class="btn btn-sm btn-primary">Edit</a> <form method="POST" action="/resellers/delete" style="display:inline;"><input type="hidden" name="reseller_id" value="'.$reseller["id"].'"><button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">Delete</button></form>'
+                'action' => '<a href="/resellers/edit/'.$reseller["id"].'" class="btn btn-sm btn-primary">Edit</a> <button type="submit" class="btn btn-sm btn-danger" onclick="return window.delete('.$reseller["id"].')">Delete</button>'
             ];
         }
         response()->json([
@@ -125,5 +125,20 @@ class ResellersController extends Controller
             'recordsFiltered' => count($data),
             'data' => $data
         ]);
+    }
+
+    public function destroy(){
+        $body = request()->body();
+        if(!$body['reseller_id'] || !is_numeric($body['reseller_id']) || empty($body['reseller_id'])){
+            return response()->redirect('/resellers');
+        }
+        $reseller = \App\Models\Reseller::findById($body['reseller_id']);
+        // die(var_dump($reseller));
+        if(!$reseller || $reseller["owner_id"] != auth()->user()->id) return response()->json(['success' => false, 'message' => 'Reseller not found']);
+        $deleted = \App\Models\Reseller::remove($body['reseller_id']);
+        if($deleted){
+            return response()->json(['success' => true, 'message' => 'Reseller deleted successfully']);
+        }
+        return response()->json(['success' => false, 'message' => 'Failed to delete reseller']);
     }
 }

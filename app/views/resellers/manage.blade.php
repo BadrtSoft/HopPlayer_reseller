@@ -234,6 +234,25 @@
                     { data: 'action', orderable: false, searchable: false }
                 ],
             });
+
+            window.delete = function(id) {
+                $.ajax({
+                    url: '/resellers/delete',
+                    type: 'POST',
+                    data: {
+                        reseller_id: id,
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            swal('Deleted!', response.message, 'success');
+                            $('#resellers-table').DataTable().ajax.reload();
+                        } else {
+                            swal('Error!', response.message, 'error');
+                        }
+                    }
+                });
+            }
+
         });
     </script>
 </body>
