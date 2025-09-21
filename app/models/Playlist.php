@@ -28,6 +28,10 @@ class Playlist extends Model {
         if(!$urlParts || !isset($urlParts['scheme']) || !isset($urlParts['host'])) {
             return false;
         }
+        parse_str( html_entity_decode($urlParts['query']), $query );
+        if(!$query['username'] || !$query["password"]){
+            return false;
+        }
         $insert = db()->insert(self::$_table)->params([
             'playlist_name' => $data['name'] ?? null,
             'device_id' => $data['device_id'] ?? null,
@@ -35,8 +39,8 @@ class Playlist extends Model {
                 "protocol" => $urlParts['scheme'],
                 "hostname" => $urlParts['host'],
                 "port" => $urlParts['port'] ?? null,
-                "username" => $urlParts['username'] ?? null,
-                "password" => $urlParts['password'] ?? null,
+                "username" => $query['username'] ?? null,
+                "password" => $query['password'] ?? null,
             ]),
             'added_at' => time()
         ])->execute();
