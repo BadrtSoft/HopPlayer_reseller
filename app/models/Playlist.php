@@ -35,8 +35,8 @@ class Playlist extends Model {
                 "protocol" => $urlParts['scheme'],
                 "hostname" => $urlParts['host'],
                 "port" => $urlParts['port'] ?? null,
-                "username" => $urlParts['user'] ?? null,
-                "password" => $urlParts['pass'] ?? null,
+                "username" => $urlParts['username'] ?? null,
+                "password" => $urlParts['password'] ?? null,
             ]),
             'added_at' => time()
         ])->execute();
